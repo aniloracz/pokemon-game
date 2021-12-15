@@ -1,7 +1,8 @@
 import "./App.css";
 import PokemonCard from "./components/PokemonCard";
 import Pokemonform from "./components/PokemonForm";
-import {useState} from "react"
+import { useState } from "react";
+import axios from "axios";
 
 function App() {
   const [pokemonList, setPokemonList] = useState([
@@ -18,14 +19,28 @@ function App() {
       id: id,
     };
 
-    setPokemonList([...pokemonList,newPokemon]);
-  
+    setPokemonList([...pokemonList, newPokemon]);
+  };
+
+  const traerPokemon = () => {
+    const pokeid = Math.floor(Math.random() * 890);
+    console.log(pokeid);
+    const api = axios
+      .get(`https://pokeapi.co/api/v2/pokemon/${pokeid}`)
+      .then((response) => {
+        const id = response.data.id;
+        const name = response.data.name;
+        let types = "";
+        response.data.types.map((item) => (types += item.type.name + ", "));
+
+        addPokemon(name, types, id);
+      });
   };
 
   return (
     <div className="App">
       <Pokemonform addPokemon={addPokemon} />
-      
+
       {pokemonList.map((unPokemon, index) => (
         <PokemonCard
           name={unPokemon.name}
@@ -34,6 +49,8 @@ function App() {
           position={index}
         />
       ))}
+
+      <button onClick={traerPokemon}>Traer Pokemn</button>
     </div>
   );
 }

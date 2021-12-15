@@ -1,14 +1,15 @@
 import "./App.css";
 import PokemonCard from "./components/PokemonCard";
 import Pokemonform from "./components/PokemonForm";
+import {useState} from "react"
 
 function App() {
-  const pokemonList = [
+  const [pokemonList, setPokemonList] = useState([
     { name: "Pikachu", type: "Electric", id: "25" },
     { name: "Dragonair", type: "Dragon", id: "148" },
     { name: "Squirtle", type: "Water", id: "7" },
     { name: "Bulbasaur", type: "Grass, Poison", id: "1" },
-  ];
+  ]);
 
   const addPokemon = (name, type, id) => {
     const newPokemon = {
@@ -16,11 +17,9 @@ function App() {
       type: type,
       id: id,
     };
-    pokemonList.push(newPokemon);
-    console.log(name);
-    console.log(type);
-    console.log(id);
-    console.log(pokemonList);
+
+    setPokemonList([...pokemonList,newPokemon]);
+  
   };
 
   return (

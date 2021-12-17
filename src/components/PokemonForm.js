@@ -38,7 +38,7 @@ const Pokemonform = ({ addPokemon }) => {
         onChange={(e) => setPokemonId(e.target.value)}
       />
 
-      <button>Agregar Pokemon a la lista</button>
+      <button>Repartir Cartas</button>
     </form>
   );
 };
